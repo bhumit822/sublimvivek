@@ -5,8 +5,8 @@ class AppTextStyle {
   static  TextStyle bold20 =
       TextStyle(fontSize: 20.spMin, fontWeight: FontWeight.bold);
 
-  static const TextStyle bold18 =
-      TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+  static  TextStyle bold18 =
+      TextStyle(fontSize: 18.spMin, fontWeight: FontWeight.bold);
 
   static  TextStyle bold16 =
       TextStyle(fontSize: 16.spMin, fontWeight: FontWeight.bold);
@@ -20,9 +20,11 @@ class AppTextStyle {
   static const TextStyle bold10 =
       TextStyle(fontSize: 10, fontWeight: FontWeight.bold);
   static  TextStyle bold49 =
-      TextStyle(fontSize: 49.h, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 49.spMin, fontWeight: FontWeight.bold);
   static  TextStyle bold23 =
-      TextStyle(fontSize: 23.h, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 23.spMin, fontWeight: FontWeight.bold);
+  static  TextStyle bold29 =
+      TextStyle(fontSize: 29.spMin, fontWeight: FontWeight.bold);
 
   static const TextStyle semiBold26 =
       TextStyle(fontSize: 26, fontWeight: FontWeight.w600);

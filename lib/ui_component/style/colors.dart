@@ -12,6 +12,7 @@ class AppColors {
   static const Color textHintColor = Color(0xFFCCCCCC);
   static const Color successColor = Color(0xFF3DA97B);
   static const Color appHeaderColor = Color(0xFF353F5F);
+  static const Color appHeaderColorNew = Color(0xFF080A35);
   static const Color grayColor = Color(0xFFC7C7C7);
   static const Color blackColor = Color(0xFF000000);
   static const Color textGrayColor = Color(0xFF666666);

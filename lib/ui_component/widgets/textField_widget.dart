@@ -508,6 +508,110 @@ TextFormField textFormField({
   );
 }
 
+TextFormField underLineTextFormField({
+  final Key? fieldKey,
+  final String? hintText,
+  final String? labelText,
+  final String? helperText,
+  final String? initialValue,
+  final int? errorMaxLines,
+  final int? maxLines,
+  final int? maxLength,
+  final double? borderRaduis = 0,
+  final bool? enabled,
+  final bool autofocus = false,
+  final bool obscureText = false,
+  final Color? filledColor,
+  final Color? cursorColor,
+  final Color? borderColor,
+  final Widget? prefixIcon,
+  final Widget? suffixIcon,
+  final FocusNode? focusNode,
+  final TextStyle? style,
+  final TextStyle? textStyle,
+  final TextStyle? hintStyle,
+  final TextStyle? lableStyle,
+  final TextAlign textAlign = TextAlign.left,
+  final TextEditingController? controller,
+  final List<TextInputFormatter>? inputFormatters,
+  final TextInputAction? textInputAction,
+  final TextInputType? keyboardType,
+  final TextCapitalization textCapitalization = TextCapitalization.sentences,
+  final GestureTapCallback? onTap,
+  final FormFieldSetter<String?>? onSaved,
+  final FormFieldValidator<String?>? validator,
+  final ValueChanged<String?>? onChanged,
+  final ValueChanged<String?>? onFieldSubmitted,
+  final BorderSide? border,
+  final EdgeInsetsGeometry? contentPadding,
+  final bool? readonly,
+  final InputBorder? errorBorder,
+  final AutovalidateMode? autovalidateMode,
+}) {
+  return TextFormField(
+    // scrollPadding:
+    //     EdgeInsets.only(bottom: Get.mediaQuery.viewInsets.bottom - 20),
+    autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
+    key: fieldKey,
+    readOnly: readonly ?? false,
+    controller: controller,
+    focusNode: focusNode,
+    maxLines: maxLines,
+    initialValue: initialValue,
+    keyboardType: keyboardType,
+    textCapitalization: textCapitalization,
+    obscureText: obscureText,
+    enabled: enabled,
+    validator: validator,
+    maxLength: maxLength,
+    textInputAction: textInputAction,
+    inputFormatters: inputFormatters,
+    onTap: onTap,
+    onSaved: onSaved,
+    onChanged: onChanged,
+    onFieldSubmitted: onFieldSubmitted,
+    autocorrect: true,
+    autofocus: autofocus,
+    textAlign: textAlign,
+    cursorColor: cursorColor,
+    cursorHeight: 20,
+    
+    style: textStyle ?? AppTextStyle.regular12,
+    decoration: InputDecoration(
+      labelStyle: lableStyle,
+      prefixIcon: prefixIcon,
+      contentPadding:
+          contentPadding ?? const EdgeInsets.fromLTRB(20, 18, 10, 18),
+      errorBorder: UnderlineInputBorder(
+      
+        borderSide: border ?? BorderSide.none,
+      ),
+      focusedBorder: UnderlineInputBorder(
+      
+        borderSide: border ?? BorderSide.none,
+      ),
+      enabledBorder: UnderlineInputBorder(
+     
+        borderSide: border ?? BorderSide.none,
+      ),
+      border: UnderlineInputBorder(
+       
+        borderSide: border ?? BorderSide.none,
+      ),
+      errorMaxLines: 5,
+      fillColor: filledColor ?? AppColors.textWhiteColor,
+      filled: true,
+      hintStyle:
+          hintStyle ?? AppTextStyle.semiBold14 .copyWith(color: AppColors.textGrayColor),
+      hintText: hintText,
+      enabled: enabled ?? true,
+      suffixIcon: suffixIcon,
+      labelText: labelText,
+      helperText: helperText,
+    ),
+  );
+}
+
 // TextFormField textFormField({
 //   final Key? fieldKey,
 //   final String? hintText,

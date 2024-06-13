@@ -1,13 +1,15 @@
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sublime/features/auth/provide/auth_provider.dart';
+import 'package:sublime/features/auth/view/register_view.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/height_width.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
+import 'package:sublime/ui_component/widgets/gredient_view_container.dart';
 import 'package:sublime/ui_component/widgets/primary_app_button.dart';
 import 'package:sublime/ui_component/widgets/textField_widget.dart';
 
@@ -21,17 +23,7 @@ class WelcomeView extends StatelessWidget {
     return Consumer<AuthProvider>(
       builder: (context, authProvider, child) {
         return Scaffold(
-            body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.h),
-          alignment: Alignment.center,
-          height: double.infinity,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  stops: [0.2, 0.8],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: AppColors.primaryGradientColor)),
+            body: GradentViewWidget(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,7 +34,6 @@ class WelcomeView extends StatelessWidget {
                 child: Text(
                   " A verification code has been sent to:",
                   textAlign: TextAlign.center,
-                  
                   style: AppTextStyle.bold20
                       .copyWith(color: AppColors.textWhiteColor, height: 1),
                 ),
@@ -57,13 +48,8 @@ class WelcomeView extends StatelessWidget {
                 ),
               ),
               customHeight(MediaQuery.of(context).size.height * 0.12),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 22.h),
-                padding: EdgeInsets.symmetric(horizontal: 30.h, vertical: 20.h),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: AppColors.blackColor.withOpacity(0.10),
-                    borderRadius: BorderRadius.circular(20.h)),
+              BlackInnerContainer(
+              
                 child: Column(
                   children: [
                     Text(
@@ -92,7 +78,10 @@ class WelcomeView extends StatelessWidget {
                     ),
                     height15,
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        primaryFocus?.unfocus();
+                           context.pushNamed(RegisterView.routeName);
+                      },
                       child: Text(
                         "Resend Code",
                         style: AppTextStyle.bold14.copyWith(
@@ -104,7 +93,6 @@ class WelcomeView extends StatelessWidget {
                   ],
                 ),
               ),
-            
             ],
           ),
         ));
