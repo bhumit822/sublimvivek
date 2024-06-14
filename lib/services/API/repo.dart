@@ -1,13 +1,18 @@
 import 'dart:developer';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sublime/app/app.dart';
+import 'package:sublime/constatnts/strings.dart';
 import 'package:sublime/services/models/request_class.dart';
 import 'package:sublime/services/models/response_class.dart';
 import 'package:sublime/services/network/network.dart';
+import 'package:sublime/ui_component/style/colors.dart';
+import 'package:sublime/ui_component/style/text_styles.dart';
 
 class ApiRepo {
-  static String baseUrl =
-      "https://sd39pwiqu0.execute-api.ap-south-1.amazonaws.com/";
+  static String baseUrl = StringConst.baseUrl;
 
   // Returns the base URL used for API calls.
   static String getBaseUrl() {
@@ -40,37 +45,55 @@ class ApiRepo {
   /// Returns a [ResponseData] object containing the response code, data, status, and message.
   ///
   /// Throws any exception that occurs during the request or response validation process.
-  static Future<ResponseData<T>> login<T>(
-      Map<String, dynamic> credentials) async {
+  Future<String> sendOTP(Map<String, dynamic> credentials) async {
     try {
       final res = await NetworkDio.request(
         request: Request(
           method: Method.post,
-          url: getApiUrl('auth/login'),
+          url: getApiUrl(StringConst.sendOTP),
           headers: NetworkDio.getHeaders(),
           body: RequestBody(data: credentials),
         ),
       );
-
-      /// wrap [validateResponse] with toJson methos of model
-      // final data = AuthResponse.fromMap(await validateResponse(res));
- final data;
-      final response = ResponseData<T>(
+      final data = await validateResponse(res);
+      final response = ResponseData(
           code: res.statusCode,
-          // data: data as T,
+          data: data,
           status: res.statusMessage,
           message: 'Success');
       if (res.statusCode == 200 || res.statusCode == 201) {
-        // globalScaffoldKey.currentState?.showSnackBar(successfulSnackBar(res));
+        return response.data?["otp_id"] ?? "";
       }
-      return response;
+      return "";
     } catch (e) {
       rethrow;
     }
   }
 
- 
-
+  Future<String> verifyOTP(Map<String, dynamic> credentials) async {
+    try {
+      final res = await NetworkDio.request(
+        request: Request(
+          method: Method.post,
+          url: getApiUrl(StringConst.verifyOTP),
+          headers: NetworkDio.getHeaders(),
+          body: RequestBody(data: credentials),
+        ),
+      );
+      final data = await validateResponse(res);
+      final response = ResponseData(
+          code: res.statusCode,
+          data: data,
+          status: res.statusMessage,
+          message: 'Success');
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        return response.data?["jwt"] ?? "";
+      }
+      return "";
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   /// Uploads a profile picture.
   ///
@@ -102,8 +125,8 @@ class ApiRepo {
 
       final response = ResponseData<T>(
           code: res.statusCode,
-          // data: data as T, 
-          
+          // data: data as T,
+
           status: res.statusMessage,
           message: 'Success');
 
@@ -113,5 +136,74 @@ class ApiRepo {
     }
   }
 
- 
+  Future<Map<String, dynamic>> validateResponse(Response response) async {
+    print("Chek response stats => ${response.statusCode}");
+    if ((response.statusCode ?? 0) >= 200 && (response.statusCode ?? 0) < 300) {
+      return response.data;
+    } else if (response.statusCode == 400) {
+      globalScaffoldKey.currentState?.showSnackBar(errorSnackBar(response));
+      return response.data;
+    } else if (response.statusCode == 401) {
+      globalScaffoldKey.currentState?.showSnackBar(errorSnackBar(response));
+
+      return response.data;
+    } else if (response.statusCode == 404) {
+      globalScaffoldKey.currentState?.showSnackBar(errorSnackBar(response));
+
+      return response.data;
+    } else if (response.statusCode == 500) {
+      globalScaffoldKey.currentState?.showSnackBar(errorSnackBar(response));
+
+      return response.data;
+    } else {
+      return response.data;
+    }
+  }
+
+  SnackBar errorSnackBar(Response<dynamic> response) {
+    return SnackBar(
+      content: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              response.data['message'],
+              style: AppTextStyle.bold16.copyWith(color: Colors.red),
+            ),
+          ),
+        ],
+      ),
+      // Text(
+      //   response.data['message'],
+      //   style: AppTextStyle.normalRegularBold15.copyWith(color: red),
+      // ),
+      margin: EdgeInsets.all(15.spMin),
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(150.r)),
+    );
+  }
+
+  SnackBar successfulSnackBar(Response<dynamic> response) {
+    return SnackBar(
+      content: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              response.data['message'],
+              style:
+                  AppTextStyle.bold16.copyWith(color: AppColors.primaryColor),
+            ),
+          ),
+        ],
+      ),
+      margin: EdgeInsets.all(15.w),
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(150.r)),
+    );
+  }
 }

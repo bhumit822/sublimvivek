@@ -5,8 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:sublime/app/provider/app_provider.dart';
 import 'package:sublime/features/auth/provide/auth_provider.dart';
 
+ final GlobalKey<ScaffoldMessengerState> globalScaffoldKey =
+      GlobalKey<ScaffoldMessengerState>();
+
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,7 @@ class MainApp extends StatelessWidget {
           splitScreenMode: true,
           builder: (context, child) {
             return MaterialApp.router(
+              scaffoldMessengerKey: globalScaffoldKey,
               routerConfig: AppRoutes.router,
               title: 'Sublime',
               theme: ThemeData(fontFamily: 'Poppins'),

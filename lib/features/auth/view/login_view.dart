@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sublime/features/auth/provide/auth_provider.dart';
 import 'package:sublime/features/auth/view/welcome_view.dart';
+import 'package:sublime/services/API/repo.dart';
 import 'package:sublime/ui_component/images/images.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/height_width.dart';
@@ -44,7 +45,7 @@ class LogInAuthView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text("Simplify your life after the buy button.",
+                  Text("Simplify your life after\nthe buy button.",
                       textAlign: TextAlign.center,
                       style: AppTextStyle.bold23.copyWith(
                         color: AppColors.textWhiteColor,
@@ -78,9 +79,10 @@ class LogInAuthView extends StatelessWidget {
                             return PrimaryAppButton(
                               isDisabble: !authProvider.isLoginButtonEnable,
                               radius: 100,
+                              buttonAction: value.passwordButtonAction,
                               color: Colors.transparent,
-                              onTap: () {
-                                context.pushNamed(WelcomeView.routeName);
+                              onTap: () async {
+                                authProvider.sendOTP(context);
                               },
                               isBorder: true,
                               buttonName: "Get Passcode",

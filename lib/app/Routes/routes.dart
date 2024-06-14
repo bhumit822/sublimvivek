@@ -28,9 +28,9 @@ class AppRoutes {
      
       // ///WELCOME VIEW
       GoRoute(
-        name: WelcomeView.routeName,
-        path: WelcomeView.route,
-        builder: (context, state) => const WelcomeView(),
+        name: otpVerificationView.routeName,
+        path: otpVerificationView.route,
+        builder: (context, state) => const otpVerificationView(),
       ),
       // register screen
       GoRoute(

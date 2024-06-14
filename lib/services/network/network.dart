@@ -20,6 +20,7 @@ class NetworkDio {
   }) async {
     try {
       log(' request ${request.body?.data}');
+      log(' CHECK URL  ${request.url}');
       switch (request.method) {
         case Method.get:
           return await dio.get(request.url!,

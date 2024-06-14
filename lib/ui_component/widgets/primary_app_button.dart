@@ -7,6 +7,7 @@ class PrimaryAppButton extends StatelessWidget {
   PrimaryAppButton(
       {super.key,
       required this.radius,
+       this.buttonAction = ButtonAction.none,
       required this.color,
       required this.onTap,
       required this.buttonName,
@@ -16,6 +17,7 @@ class PrimaryAppButton extends StatelessWidget {
       this.borderColor});
   double? radius;
   bool? isBorder, isDisabble;
+  ButtonAction? buttonAction;
   Color? color, buttonTextColor, borderColor;
   String? buttonName;
   void Function()? onTap;
@@ -40,7 +42,7 @@ class PrimaryAppButton extends StatelessWidget {
                         AppColors.textWhiteColor
                             .withOpacity(isDisabble! ? 0.2 : 1),
                     width: 1)),
-        child: Text(
+        child: buttonAction == ButtonAction.loading ? Center(child: SizedBox(height: 24.h,width: 24.h,child: const CircularProgressIndicator(strokeWidth: 1, color: AppColors.textWhiteColor,))) : Text(
           buttonName!,
           style: AppTextStyle.bold16.copyWith(
               color: buttonTextColor?.withOpacity(isDisabble! ? 0.2 : 1) ??
@@ -49,4 +51,10 @@ class PrimaryAppButton extends StatelessWidget {
       ),
     );
   }
+}
+
+
+
+enum ButtonAction {
+  none , loading, success , error
 }

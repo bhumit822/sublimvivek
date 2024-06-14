@@ -1,22 +1,20 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sublime/features/auth/provide/auth_provider.dart';
 import 'package:sublime/features/auth/view/register_view.dart';
+import 'package:sublime/services/API/repo.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/height_width.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
 import 'package:sublime/ui_component/widgets/gredient_view_container.dart';
-import 'package:sublime/ui_component/widgets/primary_app_button.dart';
 import 'package:sublime/ui_component/widgets/textField_widget.dart';
 
-class WelcomeView extends StatelessWidget {
+class otpVerificationView extends StatelessWidget {
   static const routeName = 'welcome';
   static const route = '/welcome';
-  const WelcomeView({super.key});
+  const otpVerificationView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +47,6 @@ class WelcomeView extends StatelessWidget {
               ),
               customHeight(MediaQuery.of(context).size.height * 0.12),
               BlackInnerContainer(
-              
                 child: Column(
                   children: [
                     Text(
@@ -64,6 +61,11 @@ class WelcomeView extends StatelessWidget {
                         obscureText: true,
                         textAlign: TextAlign.center,
                         hintText: "OTP",
+                        onChanged: (value) async {
+                          if (value!.length == 6) {
+                            await authProvider.verifyOTP(context);
+                          }
+                        },
                         hintStyle: AppTextStyle.regular14.copyWith(
                           color: AppColors.textHintColor,
                         ),
@@ -80,7 +82,7 @@ class WelcomeView extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         primaryFocus?.unfocus();
-                           context.pushNamed(RegisterView.routeName);
+                        context.pushNamed(RegisterView.routeName);
                       },
                       child: Text(
                         "Resend Code",
