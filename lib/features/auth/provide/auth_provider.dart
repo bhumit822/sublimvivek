@@ -4,6 +4,8 @@ import 'package:sublime/features/auth/view/welcome_view.dart';
 import 'package:sublime/features/home/home.dart';
 import 'package:sublime/main.dart';
 import 'package:sublime/services/API/repo.dart';
+import 'package:go_router/go_router.dart' as router;
+
 import 'package:sublime/ui_component/widgets/primary_app_button.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -67,13 +69,38 @@ class AuthProvider extends ChangeNotifier {
 
   //! SEND OTP API
 
-  Future<void> sendOTP(context) async {
+    void checkAndModifyNumber() {
+    String text = emailOrMobileController.text;
+    if (text.length < 2 || text.substring(0, 2) != '+1') {
+      emailOrMobileController.value = TextEditingValue(
+        text: '+1' + text,
+        selection: TextSelection.fromPosition(
+          TextPosition(offset: text.length + 2),
+        ),
+      );
+    }else{
+       emailOrMobileController.value = TextEditingValue(
+        text: text,
+        selection: TextSelection.fromPosition(
+          TextPosition(offset: text.length + 2),
+        ),
+      );
+    }
+  }
+
+  Future<void> sendOTP(BuildContext context) async {
+    RegExp regExp = RegExp(pattern);
+
     try {
       primaryFocus?.unfocus();
       passwordButtonAction = ButtonAction.loading;
+      print("check ==> ${regExp.hasMatch(pattern)}");
+      if(!regExp.hasMatch( emailOrMobileController.text)){
+        checkAndModifyNumber();
+      }
       String otpID = await ApiRepo().sendOTP({
-        "email": emailOrMobileController.text,
-        "phone": "",
+        if (regExp.hasMatch( emailOrMobileController.text)) "email": emailOrMobileController.text
+        else "phone": emailOrMobileController.text,
       });
       if (otpID != "") {
         resOtpID = otpID;
@@ -87,7 +114,10 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> verifyOTP(context) async {
+  String pattern =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+  Future<void> verifyOTP(BuildContext context) async {
     try {
       primaryFocus?.unfocus();
 
@@ -97,16 +127,19 @@ class AuthProvider extends ChangeNotifier {
         "otp_id": resOtpID,
       });
 
+      print("check jwt ==> ${jwt}");
+
       if (jwt != "") {
         await storage.write('jwt', jwt);
         passwordButtonAction = ButtonAction.none;
         storage.read('jwt') == null || storage.read('jwt') == ""
             ? context.goNamed(LogInAuthView.routeName)
-            : context.pushNamed(HomeView.routeName);
+            : context.goNamed(HomeView.routeName);
         OTPController.clear();
       }
       passwordButtonAction = ButtonAction.none;
     } catch (e) {
+      print("checl verify error ==> $e");
       passwordButtonAction = ButtonAction.none;
     }
   }

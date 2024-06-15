@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sublime/features/auth/view/login_view.dart';
 import 'package:sublime/features/auth/view/register_view.dart';
 import 'package:sublime/features/auth/view/welcome_view.dart';
+import 'package:sublime/features/home/home.dart';
 import 'package:sublime/features/web_view/web_view.dart';
 import 'package:sublime/spalsh/view/splash_view.dart';
 
@@ -46,6 +47,15 @@ class AppRoutes {
         builder: (context, state) {
          final pageData = ((state.extra) as Map<String, dynamic>)["pageTittle"] as String;
           return MyWebView(pageTittle: pageData ,);
+        },
+      ),
+      GoRoute(
+        name: HomeView.routeName,
+        path: HomeView.route,
+
+        builder: (context, state) {
+         
+          return HomeView();
         },
       ),
     ],
