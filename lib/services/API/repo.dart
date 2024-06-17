@@ -88,7 +88,7 @@ class ApiRepo {
           status: res.statusMessage,
           message: 'Success');
       if (res.statusCode == 200 || res.statusCode == 201) {
-        return response.data?["jwt"] ?? "";
+        return response.data?["bearer_token"] ?? "";
       }
       return "";
     } catch (e) {

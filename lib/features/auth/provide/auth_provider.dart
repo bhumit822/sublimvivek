@@ -114,7 +114,6 @@ class AuthProvider extends ChangeNotifier {
         resOtpID = otpID;
         passwordButtonAction = ButtonAction.none;
         context.pushNamed(otpVerificationView.routeName);
-        emailOrMobileController.clear();
       }
       passwordButtonAction = ButtonAction.none;
     } catch (e) {
@@ -135,15 +134,17 @@ class AuthProvider extends ChangeNotifier {
         "otp_id": resOtpID,
       });
 
-      print("check jwt ==> ${jwt}");
+      print("check jwt ==> ${jwt}"); 
 
       if (jwt != "") {
-        await storage.write('jwt', jwt);
+        await storage.write('bearer_token', jwt);
         passwordButtonAction = ButtonAction.none;
-        storage.read('jwt') == null || storage.read('jwt') == ""
+        storage.read('bearer_token') == null || storage.read('bearer_token') == ""
             ? context.goNamed(LogInAuthView.routeName)
             : context.goNamed(BottomNavigationBarView.routeName);
         OTPController.clear();
+        emailOrMobileController.clear();
+
       }
       passwordButtonAction = ButtonAction.none;
     } catch (e) {

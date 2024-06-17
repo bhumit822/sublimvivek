@@ -19,7 +19,7 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      storage.read('jwt') == null || storage.read('jwt') == ""
+      storage.read('bearer_token') == null || storage.read('bearer_token') == ""
           ? context.goNamed(LogInAuthView.routeName)
           : context.goNamed(BottomNavigationBarView.routeName);
     });
