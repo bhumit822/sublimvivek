@@ -4,6 +4,7 @@ import 'package:sublime/app/Routes/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:sublime/app/provider/app_provider.dart';
 import 'package:sublime/features/auth/provide/auth_provider.dart';
+import 'package:sublime/features/bottom_navigation_bar/provider/bottom_nav_bar_provider.dart';
 
  final GlobalKey<ScaffoldMessengerState> globalScaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
@@ -22,6 +23,11 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => AuthProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => BottomNavProvider(
+            
+          ),
+        ),
       ],
       builder: (context, child) {
         return ScreenUtilInit(
@@ -29,12 +35,17 @@ class MainApp extends StatelessWidget {
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (context, child) {
-            return MaterialApp.router(
-              scaffoldMessengerKey: globalScaffoldKey,
-              routerConfig: AppRoutes.router,
-              title: 'Sublime',
-              theme: ThemeData(fontFamily: 'Poppins'),
-              debugShowCheckedModeBanner: false,
+            return GestureDetector(
+              onTap:  (){
+                primaryFocus?.unfocus();
+              },
+              child: MaterialApp.router(
+                scaffoldMessengerKey: globalScaffoldKey,
+                routerConfig: AppRoutes.router,
+                title: 'Sublime',
+                theme: ThemeData(fontFamily: 'Poppins'),
+                debugShowCheckedModeBanner: false,
+              ),
             );
           },
         );

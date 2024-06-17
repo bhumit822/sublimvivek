@@ -3,6 +3,6 @@ class StringConst {
 
   static String sendOTP = 'otp';
 static String verifyOTP = 'otp/verify';
-
+static String getChatThrades = 'chat/threads';
 
 }

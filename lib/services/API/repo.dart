@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sublime/app/app.dart';
 import 'package:sublime/constatnts/strings.dart';
+import 'package:sublime/features/message/model/get_all_thrade_model.dart';
 import 'package:sublime/services/models/request_class.dart';
 import 'package:sublime/services/models/response_class.dart';
 import 'package:sublime/services/network/network.dart';
@@ -90,6 +91,33 @@ class ApiRepo {
         return response.data?["jwt"] ?? "";
       }
       return "";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<dynamic>> getChatThreads<T>() async {
+    try {
+      final res = await NetworkDio.request(
+        request: Request(
+          method: Method.get,
+          url: getApiUrl(StringConst.getChatThrades),
+          headers: NetworkDio.getHeaders(),
+         
+        ),
+      );
+      // final data = await validateResponse(res);
+      final response = ResponseData(
+          code: res.statusCode,
+          data: res.data as T,
+          status: res.statusMessage,
+          message: 'Success');
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        print("check res ==> ${res.data}");
+        print("check res ==> ${response.data}");
+        return response.data as List<dynamic> ;
+      }
+      return [];
     } catch (e) {
       rethrow;
     }

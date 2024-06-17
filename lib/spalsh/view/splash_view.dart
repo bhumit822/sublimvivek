@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sublime/features/auth/view/login_view.dart';
+import 'package:sublime/features/bottom_navigation_bar/view/bottom__nav_bar_view.dart';
+import 'package:sublime/main.dart';
 
 class SplashView extends StatefulWidget {
   static const routeName = 'splash';
@@ -17,7 +19,9 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      context.goNamed(LogInAuthView.routeName);
+      storage.read('jwt') == null || storage.read('jwt') == ""
+          ? context.goNamed(LogInAuthView.routeName)
+          : context.goNamed(BottomNavigationBarView.routeName);
     });
   }
 

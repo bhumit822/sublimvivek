@@ -19,4 +19,6 @@ class AppColors {
   static const Color messageColor = Color(0xFF14AF11);
   static const Color backgroundColor = Color(0xFFEDF6FF);
   static const Color backgroundGrayColor = Color(0xFFE4E4E4);
+  static const Color iconSelectedColor = Color(0xFF2B6EBF);
+  static const Color iconunSelectedColor = Color(0xFF949AA8);
 }

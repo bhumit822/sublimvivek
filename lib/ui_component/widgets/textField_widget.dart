@@ -1,11 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
-
-
 
 class NumberWidget extends StatelessWidget {
   const NumberWidget({
@@ -56,8 +53,8 @@ class NumberWidget extends StatelessWidget {
       focusNode: focusNode,
       enabled: enabled,
       borderRaduis: 10,
-      hintStyle:
-          style ?? AppTextStyle.regular12.copyWith(color: AppColors.textGrayColor),
+      hintStyle: style ??
+          AppTextStyle.regular12.copyWith(color: AppColors.textGrayColor),
       textStyle: textStyle ?? AppTextStyle.regular12,
       controller: controller,
       style: style,
@@ -158,8 +155,8 @@ class TextFormFieldWidget extends StatelessWidget {
           contentPadding ?? const EdgeInsets.fromLTRB(20, 15, 10, 15),
       textStyle: AppTextStyle.semiBold14
           .copyWith(color: AppColors.blackColor, fontWeight: FontWeight.w500),
-      hintStyle:
-          hintStyle ?? AppTextStyle.regular12.copyWith(color: AppColors.textGrayColor),
+      hintStyle: hintStyle ??
+          AppTextStyle.regular12.copyWith(color: AppColors.textGrayColor),
       borderColor: borderColor,
       filledColor: filledColor,
     );
@@ -497,8 +494,8 @@ TextFormField textFormField({
       errorMaxLines: 5,
       fillColor: filledColor ?? AppColors.textWhiteColor,
       filled: true,
-      hintStyle:
-          hintStyle ?? AppTextStyle.semiBold14 .copyWith(color: AppColors.textGrayColor),
+      hintStyle: hintStyle ??
+          AppTextStyle.semiBold14.copyWith(color: AppColors.textGrayColor),
       hintText: hintText,
       enabled: enabled ?? true,
       suffixIcon: suffixIcon,
@@ -575,7 +572,7 @@ TextFormField underLineTextFormField({
     textAlign: textAlign,
     cursorColor: cursorColor,
     cursorHeight: 20,
-    
+
     style: textStyle ?? AppTextStyle.regular12,
     decoration: InputDecoration(
       labelStyle: lableStyle,
@@ -583,26 +580,22 @@ TextFormField underLineTextFormField({
       contentPadding:
           contentPadding ?? const EdgeInsets.fromLTRB(20, 18, 10, 18),
       errorBorder: UnderlineInputBorder(
-      
         borderSide: border ?? BorderSide.none,
       ),
       focusedBorder: UnderlineInputBorder(
-      
         borderSide: border ?? BorderSide.none,
       ),
       enabledBorder: UnderlineInputBorder(
-     
         borderSide: border ?? BorderSide.none,
       ),
       border: UnderlineInputBorder(
-       
         borderSide: border ?? BorderSide.none,
       ),
       errorMaxLines: 5,
       fillColor: filledColor ?? AppColors.textWhiteColor,
       filled: true,
-      hintStyle:
-          hintStyle ?? AppTextStyle.semiBold14 .copyWith(color: AppColors.textGrayColor),
+      hintStyle: hintStyle ??
+          AppTextStyle.semiBold14.copyWith(color: AppColors.textGrayColor),
       hintText: hintText,
       enabled: enabled ?? true,
       suffixIcon: suffixIcon,
@@ -767,7 +760,8 @@ TextFormField outlineTextField({
     cursorHeight: 20,
     style: textStyle ?? AppTextStyle.regular12,
     decoration: InputDecoration(
-      contentPadding: const EdgeInsets.all(10),
+      contentPadding:
+          const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
       border: outlineBorderDecoration,
       enabledBorder: outlineBorderDecoration,
       focusedBorder: outlineBorderDecoration,
@@ -786,9 +780,10 @@ TextFormField outlineTextField({
 }
 
 OutlineInputBorder outlineBorderDecoration = const OutlineInputBorder(
-  borderSide: BorderSide(color: AppColors.grayColor, width: 1.2),
-  borderRadius: BorderRadius.zero,
-);
+    borderSide: BorderSide(color: AppColors.iconSelectedColor, width: 1),
+    borderRadius: BorderRadius.all(
+      Radius.circular(100),
+    ));
 
 
 

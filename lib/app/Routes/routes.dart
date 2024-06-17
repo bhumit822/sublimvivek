@@ -2,7 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:sublime/features/auth/view/login_view.dart';
 import 'package:sublime/features/auth/view/register_view.dart';
 import 'package:sublime/features/auth/view/welcome_view.dart';
+import 'package:sublime/features/bottom_navigation_bar/view/bottom__nav_bar_view.dart';
 import 'package:sublime/features/home/home.dart';
+import 'package:sublime/features/message/view/message_detail_view.dart';
 import 'package:sublime/features/web_view/web_view.dart';
 import 'package:sublime/spalsh/view/splash_view.dart';
 
@@ -49,6 +51,7 @@ class AppRoutes {
           return MyWebView(pageTittle: pageData ,);
         },
       ),
+      //! HOME VIEW
       GoRoute(
         name: HomeView.routeName,
         path: HomeView.route,
@@ -56,6 +59,26 @@ class AppRoutes {
         builder: (context, state) {
          
           return HomeView();
+        },
+      ),
+      //! BOTTOMNAV VIEW
+      GoRoute(
+        name: BottomNavigationBarView.routeName,
+        path: BottomNavigationBarView.route,
+
+        builder: (context, state) {
+         
+          return BottomNavigationBarView();
+        },
+      ),
+      //! MESSAGE DETAIL VIEW
+      GoRoute(
+        name: MessageDetailView.routeName,
+        path: MessageDetailView.route,
+
+        builder: (context, state) {
+         
+          return MessageDetailView();
         },
       ),
     ],

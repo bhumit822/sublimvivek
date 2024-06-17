@@ -23,6 +23,8 @@ class AppTextStyle {
       TextStyle(fontSize: 49.spMin, fontWeight: FontWeight.bold);
   static  TextStyle bold23 =
       TextStyle(fontSize: 23.spMin, fontWeight: FontWeight.bold);
+  static  TextStyle bold24 =
+      TextStyle(fontSize: 24.spMin, fontWeight: FontWeight.bold);
   static  TextStyle bold29 =
       TextStyle(fontSize: 29.spMin, fontWeight: FontWeight.bold);
 

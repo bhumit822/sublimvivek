@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sublime/features/auth/view/login_view.dart';
 import 'package:sublime/features/auth/view/welcome_view.dart';
+import 'package:sublime/features/bottom_navigation_bar/view/bottom__nav_bar_view.dart';
 import 'package:sublime/features/home/home.dart';
 import 'package:sublime/main.dart';
 import 'package:sublime/services/API/repo.dart';
@@ -9,6 +10,11 @@ import 'package:go_router/go_router.dart' as router;
 import 'package:sublime/ui_component/widgets/primary_app_button.dart';
 
 class AuthProvider extends ChangeNotifier {
+
+
+
+
+  
   TextEditingController emailOrMobileController = TextEditingController();
   TextEditingController OTPController = TextEditingController();
 
@@ -69,7 +75,7 @@ class AuthProvider extends ChangeNotifier {
 
   //! SEND OTP API
 
-    void checkAndModifyNumber() {
+  void checkAndModifyNumber() {
     String text = emailOrMobileController.text;
     if (text.length < 2 || text.substring(0, 2) != '+1') {
       emailOrMobileController.value = TextEditingValue(
@@ -78,8 +84,8 @@ class AuthProvider extends ChangeNotifier {
           TextPosition(offset: text.length + 2),
         ),
       );
-    }else{
-       emailOrMobileController.value = TextEditingValue(
+    } else {
+      emailOrMobileController.value = TextEditingValue(
         text: text,
         selection: TextSelection.fromPosition(
           TextPosition(offset: text.length + 2),
@@ -90,17 +96,19 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> sendOTP(BuildContext context) async {
     RegExp regExp = RegExp(pattern);
-
+//  context.goNamed(BottomNavigationBarView.routeName);
     try {
       primaryFocus?.unfocus();
       passwordButtonAction = ButtonAction.loading;
       print("check ==> ${regExp.hasMatch(pattern)}");
-      if(!regExp.hasMatch( emailOrMobileController.text)){
+      if (!regExp.hasMatch(emailOrMobileController.text)) {
         checkAndModifyNumber();
       }
       String otpID = await ApiRepo().sendOTP({
-        if (regExp.hasMatch( emailOrMobileController.text)) "email": emailOrMobileController.text
-        else "phone": emailOrMobileController.text,
+        if (regExp.hasMatch(emailOrMobileController.text))
+          "email": emailOrMobileController.text.trim()
+        else
+          "phone": emailOrMobileController.text,
       });
       if (otpID != "") {
         resOtpID = otpID;
@@ -134,7 +142,7 @@ class AuthProvider extends ChangeNotifier {
         passwordButtonAction = ButtonAction.none;
         storage.read('jwt') == null || storage.read('jwt') == ""
             ? context.goNamed(LogInAuthView.routeName)
-            : context.goNamed(HomeView.routeName);
+            : context.goNamed(BottomNavigationBarView.routeName);
         OTPController.clear();
       }
       passwordButtonAction = ButtonAction.none;
