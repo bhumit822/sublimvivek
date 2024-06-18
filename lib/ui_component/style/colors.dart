@@ -21,4 +21,8 @@ class AppColors {
   static const Color backgroundGrayColor = Color(0xFFE4E4E4);
   static const Color iconSelectedColor = Color(0xFF2B6EBF);
   static const Color iconunSelectedColor = Color(0xFF949AA8);
+  static const Color newGrayCOlor = Color(0xFF666666);
+  static const Color lableButtonColor = Color(0xFFFFF6D5);
+  static const Color grey99Color = Color(0xFF999999);
+  static const Color dividerColor = Color(0xFFD3D1D1);
 }

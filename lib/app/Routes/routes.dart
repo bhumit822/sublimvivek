@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:sublime/features/MyReturn/view/retun_detail_view.dart';
 import 'package:sublime/features/auth/view/login_view.dart';
 import 'package:sublime/features/auth/view/register_view.dart';
 import 'package:sublime/features/auth/view/welcome_view.dart';
@@ -79,6 +80,17 @@ class AppRoutes {
         builder: (context, state) {
          
           return MessageDetailView();
+        },
+      ),
+
+      //! Rout Detail View
+      GoRoute(
+        name: MyReturnDetailView.routeName,
+        path: MyReturnDetailView.route,
+
+        builder: (context, state) {
+         final int index = ((state.extra) as Map<String, dynamic>)["index"] as int;
+          return MyReturnDetailView(index:index,);
         },
       ),
     ],

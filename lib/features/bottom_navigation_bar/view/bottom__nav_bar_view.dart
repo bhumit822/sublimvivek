@@ -48,6 +48,7 @@ class BottomNavigationBarView extends StatelessWidget {
                           bottomNavProvider.bottomNavBarIcons[index],
                           height: 25.spMin,
                           width: 25.spMin,
+                          
                           color: bottomNavProvider.currentIndex == index
                               ? AppColors.iconSelectedColor
                               : AppColors.iconunSelectedColor,

@@ -41,7 +41,7 @@ class AppTextStyle {
       TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
 
   static  TextStyle semiBold14 =
-      TextStyle(fontSize: 14.spMin, fontWeight: FontWeight.w400);
+      TextStyle(fontSize: 14.spMin, fontWeight: FontWeight.w600);
 
   static TextStyle semiBold12 =
       TextStyle(fontSize: 12.spMin, fontWeight: FontWeight.w400);
