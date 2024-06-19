@@ -17,10 +17,10 @@ class MyRetuenVIew extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("MyRetuen VIEW"),
-              SizedBox(
-                height: 10,
-              ),
+              // Text("MyRetuen VIEW"),
+              // SizedBox(
+              //   height: 10,
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -31,44 +31,42 @@ class MyRetuenVIew extends StatelessWidget {
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      height: 50.spMin,
-                      width: 50.spMin,
                       color: Colors.lightGreen,
-                      child: Text("1"),
+                      child: Text("View Return Details"),
                     ),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.pushNamed(MyReturnDetailView.routeName,
-                          extra: {'index': 1});
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 50.spMin,
-                      width: 50.spMin,
-                      color: Colors.lightGreen,
-                      child: Text("2"),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.pushNamed(MyReturnDetailView.routeName,
-                          extra: {'index': 2});
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 50.spMin,
-                      width: 50.spMin,
-                      color: Colors.lightGreen,
-                      child: Text("3"),
-                    ),
-                  ),
+                  // SizedBox( 
+                  //   width: 10,
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     context.pushNamed(MyReturnDetailView.routeName,
+                  //         extra: {'index': 1});
+                  //   },
+                  //   child: Container(
+                  //     alignment: Alignment.center,
+                  //     height: 50.spMin,
+                  //     width: 50.spMin,
+                  //     color: Colors.lightGreen,
+                  //     child: Text("2"),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   width: 10,
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     context.pushNamed(MyReturnDetailView.routeName,
+                  //         extra: {'index': 2});
+                  //   },
+                  //   child: Container(
+                  //     alignment: Alignment.center,
+                  //     height: 50.spMin,
+                  //     width: 50.spMin,
+                  //     color: Colors.lightGreen,
+                  //     child: Text("3"),
+                  //   ),
+                  // ),
                 ],
               )
             ],

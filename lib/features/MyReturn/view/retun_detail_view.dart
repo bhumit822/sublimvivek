@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sublime/features/MyReturn/widgets/brand_widget.dart';
 import 'package:sublime/features/MyReturn/widgets/footer_view.dart';
 import 'package:sublime/features/MyReturn/widgets/qr_widget.dart';
+import 'package:sublime/features/MyReturn/widgets/return_item_widget.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
 import 'package:sublime/ui_component/widgets/chat_textfield_widget.dart';
 import 'package:sublime/ui_component/widgets/custom_app_bar.dart';
+import 'package:sublime/ui_component/widgets/outLine_button.dart';
 import 'package:sublime/ui_component/widgets/primary_app_button.dart';
 
 class MyReturnDetailView extends StatelessWidget {
@@ -28,178 +31,334 @@ class MyReturnDetailView extends StatelessWidget {
         tittle: "Return Details",
       ),
       body: SingleChildScrollView(
-        child: index == 0 ? FirstWidget(context) : SecondWidget(context),
+        child: index == 0
+            ? FirstWidget(context)
+            : index == 2
+                ? ThirdWidget(context)
+                : SecondWidget(context),
       ),
       bottomNavigationBar: index != 0
           ? ChatTextFieldWidget(controller: TextEditingController())
-          : SizedBox( ),
+          : SizedBox(),
     );
   }
 
-  Widget SecondWidget(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          const BrandNameWidgetWithImage(),
-          Container(
-            margin: EdgeInsets.all(20.spMin),
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.spMin)),
+  Widget ThirdWidget(BuildContext context) {
+    return Column(
+      children: [
+        const BrandNameWidgetWithImage(),
+        Container(
+          margin: EdgeInsets.all(20.spMin),
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, 0),
+                  blurRadius: 10.0,
+                ),
+              ],
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.spMin)),
+          child: Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 25.h, vertical: 35.h),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 10.spMin, vertical: 10.spMin),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "Drop off at a USPS",
-                        style: AppTextStyle.bold24,
-                      ),
-                      const Text(
-                        "Print and Pack",
-                        style: AppTextStyle.regular14,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Open",
-                            style: AppTextStyle.bold14
-                                .copyWith(color: AppColors.messageColor),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const Text(
-                            "Closes 7PM",
-                            style: AppTextStyle.regular14,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(10.h),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.dividerColor),
-                    borderRadius: BorderRadius.circular(10.h),
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "On its way back",
+                      style: AppTextStyle.bold30,
+                    ),
+                    SizedBox(height: 20.h,),
+                    Text(
+                      "Estimated Delivery Date",
+                      style: AppTextStyle.regular14,
+                    ),
+                    Text(
+                      "Monday",
+                      style: AppTextStyle.bold14,
+                    ),
+                    Text(
+                      "JUN",
+                      style: AppTextStyle.bold14,
+                    ),
+                    Text(
+                      "23",
+                      style: AppTextStyle.bold14.copyWith(fontSize: 80.spMin),
+                    ),
+                    Row(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.h),
-                          child:
-                              SvgPicture.asset("assets/icons/svg/document.svg"),
-                        ),
                         Text(
-                          "Expires in 28 Days",
-                          style: AppTextStyle.regular12
-                              .copyWith(color: AppColors.newGrayCOlor),
+                          "LATEST UPDATE",
+                          style: AppTextStyle.semiBold14,
                         ),
                         SizedBox(
-                          height: 5.h,
-                        ),
-                        const Divider(
-                          color: AppColors.dividerColor,
+                          width: 10.h,
                         ),
                         Text(
-                          "View Your Return Lable",
-                          style: AppTextStyle.bold16
+                          "Show Full History",
+                          style: AppTextStyle.regular14
                               .copyWith(color: AppColors.primaryColor),
-                        ),
-                        SizedBox(
-                          height: 10.h,
                         ),
                       ],
                     ),
-                  ),
+                    SizedBox(height: 15.h,),
+
+                    Row(
+                      children: [
+                        Text(
+                          "today".toUpperCase(),
+                          style: AppTextStyle.bold14,
+                        ),
+                        SizedBox(
+                          width: 10.h,
+                        ),
+                        Text(
+                          "09:31am | san francisco, ca".toUpperCase(),
+                          style: AppTextStyle.semiBold10.copyWith(
+                            color: AppColors.newGrayCOlor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "Picked up from Kohl’s",
+                      style: AppTextStyle.regular14,
+                    ),
+                    SizedBox(height: 15.h,),
+                    
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/png/upslogo.png",
+                          height: 40.h,
+                          width: 40.h,
+                        ),
+                        SizedBox(
+                          width: 10.h,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Tracking Number",
+                              style: AppTextStyle.regular14
+                            ),
+                            Text(
+                              "1zv341710312080787",
+                              style: AppTextStyle.regular14.copyWith(
+                                color: AppColors.newGrayCOlor,
+                                height: 0.8
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        ReturnDetailsWidget(
+          returnCount: 2,
+          itemImage: "assets/icons/png/shoes.png",
+          isbill: true,
+        ),
+      ],
+    );
+  }
+
+  Widget SecondWidget(BuildContext context) {
+    return Column(
+      children: [
+        const BrandNameWidgetWithImage(),
+        Container(
+          margin: EdgeInsets.all(20.spMin),
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, 0),
+                  blurRadius: 10.0,
                 ),
-                SizedBox(
-                  height: 5.h,
+              ],
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.spMin)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 10.spMin, vertical: 10.spMin),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Drop off at a USPS",
+                      style: AppTextStyle.bold24,
+                    ),
+                    const Text(
+                      "Print and Pack",
+                      style: AppTextStyle.regular14,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Open",
+                          style: AppTextStyle.bold14
+                              .copyWith(color: AppColors.messageColor),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Text(
+                          "Closes 7PM",
+                          style: AppTextStyle.regular14,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Read Return Instructions",
-                    style: AppTextStyle.regular14
-                        .copyWith(color: AppColors.primaryColor),
-                  ),
+              ),
+              Container(
+                margin: EdgeInsets.all(10.h),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.dividerColor),
+                  borderRadius: BorderRadius.circular(10.h),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Divider(
-                  color: AppColors.dividerColor,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(10.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Drop off Location: ",
-                            style: AppTextStyle.bold14,
-                          ),
-                          Text(
-                            "Brundage\n2525 E Brundage Ln\nBakersfield, CA 93307",
-                            style: AppTextStyle.semiBold14
-                                .copyWith(color: AppColors.newGrayCOlor),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "Close",
-                                style: AppTextStyle.bold14
-                                    .copyWith(color: AppColors.messageColor),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Text(
-                                "Closes 7PM",
-                                style: AppTextStyle.regular14,
-                              ),
-                            ],
-                          ),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.h),
+                        child:
+                            SvgPicture.asset("assets/icons/svg/document.svg"),
                       ),
-                      Image.asset(
-                        "assets/icons/png/postal_service.png",
-                        height: 82.spMin,
-                        width: 82.spMin,
+                      Text(
+                        "Expires in 28 Days",
+                        style: AppTextStyle.regular12
+                            .copyWith(color: AppColors.newGrayCOlor),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      const Divider(
+                        color: AppColors.dividerColor,
+                      ),
+                      Text(
+                        "View Your Return Lable",
+                        style: AppTextStyle.bold16
+                            .copyWith(color: AppColors.primaryColor),
+                      ),
+                      SizedBox(
+                        height: 10.h,
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10.h,
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Read Return Instructions",
+                  style: AppTextStyle.regular14
+                      .copyWith(color: AppColors.primaryColor),
                 ),
-                PrimaryAppButton(
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Divider(
+                color: AppColors.dividerColor,
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Drop off Location: ",
+                          style: AppTextStyle.bold14,
+                        ),
+                        Text(
+                          "Brundage\n2525 E Brundage Ln\nBakersfield, CA 93307",
+                          style: AppTextStyle.semiBold14
+                              .copyWith(color: AppColors.newGrayCOlor),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Close",
+                              style: AppTextStyle.bold14
+                                  .copyWith(color: AppColors.messageColor),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Text(
+                              "Closes 7PM",
+                              style: AppTextStyle.regular14,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Image.asset(
+                      "assets/icons/png/postal_service.png",
+                      height: 82.spMin,
+                      width: 82.spMin,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20.h),
+                child: PrimaryAppButton(
                     radius: 100,
                     color: AppColors.primaryColor,
                     onTap: () {},
                     buttonName: "Get Directions",
-                    isDisabble: false)
-              ],
-            ),
+                    isDisabble: false),
+              )
+            ],
           ),
-        ],
-      ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 20.h, right: 20.h, bottom: 20.h),
+          child: OutLineButton(
+            buttonName: "I have dropped this off",
+          ),
+        ),
+        ReturnDetailsWidget(
+          isbill: false,
+          returnCount: 2,
+          itemImage: "assets/icons/png/shoes.png",
+        ),
+      ],
     );
   }
 
@@ -211,6 +370,13 @@ class MyReturnDetailView extends StatelessWidget {
           margin: EdgeInsets.all(20.spMin),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, 0),
+                  blurRadius: 10.0,
+                ),
+              ],
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.spMin)),
           child: Column(
@@ -405,6 +571,13 @@ class MyReturnDetailView extends StatelessWidget {
           margin: EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 20.sp),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, 0),
+                  blurRadius: 10.0,
+                ),
+              ],
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.spMin)),
           child: Column(

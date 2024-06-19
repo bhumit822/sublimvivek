@@ -6,12 +6,11 @@ import 'package:sublime/app/provider/app_provider.dart';
 import 'package:sublime/features/auth/provide/auth_provider.dart';
 import 'package:sublime/features/bottom_navigation_bar/provider/bottom_nav_bar_provider.dart';
 
- final GlobalKey<ScaffoldMessengerState> globalScaffoldKey =
-      GlobalKey<ScaffoldMessengerState>();
+final GlobalKey<ScaffoldMessengerState> globalScaffoldKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 class MainApp extends StatelessWidget {
   MainApp({super.key});
- 
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +23,7 @@ class MainApp extends StatelessWidget {
           create: (context) => AuthProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => BottomNavProvider(
-            
-          ),
+          create: (context) => BottomNavProvider(),
         ),
       ],
       builder: (context, child) {
@@ -36,14 +33,14 @@ class MainApp extends StatelessWidget {
           splitScreenMode: true,
           builder: (context, child) {
             return GestureDetector(
-              onTap:  (){
+              onTap: () {
                 primaryFocus?.unfocus();
               },
               child: MaterialApp.router(
                 scaffoldMessengerKey: globalScaffoldKey,
                 routerConfig: AppRoutes.router,
                 title: 'Sublime',
-                theme: ThemeData(fontFamily: 'Poppins'),
+                theme: ThemeData(fontFamily: 'Circular'),
                 debugShowCheckedModeBanner: false,
               ),
             );

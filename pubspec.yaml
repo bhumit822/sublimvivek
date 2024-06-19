@@ -35,8 +35,7 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: assets/fonts/poppins/Poppins-Regular.ttf
-        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/poppins/Poppins-Bold.ttf
-          weight: 700
+        - asset: assets/fonts/circular/CircularStd-Black.otf
+        - asset: assets/fonts/circular/CircularStd-Bold.otf
+        - asset: assets/fonts/circular/CircularStd-Book.otf
+        

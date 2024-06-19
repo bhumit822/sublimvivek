@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppTextStyle {
   static  TextStyle bold20 =
       TextStyle(fontSize: 20.spMin, fontWeight: FontWeight.bold);
+  static  TextStyle bold30 =
+      TextStyle(fontSize: 30.spMin, fontWeight: FontWeight.bold);
 
   static  TextStyle bold18 =
       TextStyle(fontSize: 18.spMin, fontWeight: FontWeight.bold);
