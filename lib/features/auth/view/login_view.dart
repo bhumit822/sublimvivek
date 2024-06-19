@@ -62,6 +62,8 @@ class LogInAuthView extends StatelessWidget {
                         ),
                         height15,
                         textFormField(
+                          textCapitalization: TextCapitalization.none,
+                          keyboardType: TextInputType.emailAddress,
                             onChanged: (value) {
                               authProvider.validateLoginViewForm();
                             },

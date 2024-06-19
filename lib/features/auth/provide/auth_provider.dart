@@ -106,7 +106,7 @@ class AuthProvider extends ChangeNotifier {
       }
       String otpID = await ApiRepo().sendOTP({
         if (regExp.hasMatch(emailOrMobileController.text))
-          "email": emailOrMobileController.text.trim()
+          "email": emailOrMobileController.text.trim().toLowerCase()
         else
           "phone": emailOrMobileController.text,
       });

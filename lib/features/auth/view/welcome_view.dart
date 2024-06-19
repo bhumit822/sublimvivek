@@ -57,6 +57,7 @@ class otpVerificationView extends StatelessWidget {
                     ),
                     height15,
                     textFormField(
+                      keyboardType: TextInputType.number,
                         maxLines: 1,
                         obscureText: true,
                         textAlign: TextAlign.center,
