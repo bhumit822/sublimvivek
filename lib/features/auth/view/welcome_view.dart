@@ -59,7 +59,8 @@ class otpVerificationView extends StatelessWidget {
                     textFormField(
                         keyboardType: TextInputType.number,
                         maxLines: 1,
-                        obscureText: true,
+                        obscureText:
+                            authProvider.errorMessage == "" ? true : false,
                         textAlign: TextAlign.center,
                         hintText: "OTP",
                         onChanged: (value) async {
@@ -70,6 +71,7 @@ class otpVerificationView extends StatelessWidget {
                         hintStyle: AppTextStyle.regular14.copyWith(
                           color: AppColors.textHintColor,
                         ),
+                        style: AppTextStyle.bold18,
                         controller: authProvider.OTPController,
                         borderRaduis: 4),
                     SizedBox(
