@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sublime/features/auth/model/verify_otp_mdoel.dart';
 import 'package:sublime/features/auth/view/login_view.dart';
 import 'package:sublime/features/auth/view/welcome_view.dart';
 import 'package:sublime/features/bottom_navigation_bar/view/bottom__nav_bar_view.dart';
@@ -6,15 +7,11 @@ import 'package:sublime/features/home/home.dart';
 import 'package:sublime/main.dart';
 import 'package:sublime/services/API/repo.dart';
 import 'package:go_router/go_router.dart' as router;
+import 'package:sublime/services/models/response_class.dart';
 
 import 'package:sublime/ui_component/widgets/primary_app_button.dart';
 
 class AuthProvider extends ChangeNotifier {
-
-
-
-
-  
   TextEditingController emailOrMobileController = TextEditingController();
   TextEditingController OTPController = TextEditingController();
 
@@ -124,27 +121,39 @@ class AuthProvider extends ChangeNotifier {
   String pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
+  String _errorMessage = '';
+  String get errorMessage => _errorMessage;
+  set errorMessage(String value) {
+    _errorMessage = value;
+    notifyListeners();
+  }
+
   Future<void> verifyOTP(BuildContext context) async {
     try {
       primaryFocus?.unfocus();
 
       passwordButtonAction = ButtonAction.loading;
-      String jwt = await ApiRepo().verifyOTP({
+      ResponseData verifyResposne = await ApiRepo().verifyOTP<VevrifyOtpModel>({
         "code": OTPController.text,
         "otp_id": resOtpID,
       });
 
-      print("check jwt ==> ${jwt}"); 
-
-      if (jwt != "") {
-        await storage.write('bearer_token', jwt);
+      if (verifyResposne.data?.bearerToken != null &&
+          verifyResposne.data!.bearerToken != "") {
+        await storage.write('bearer_token', verifyResposne.data!.bearerToken);
         passwordButtonAction = ButtonAction.none;
-        storage.read('bearer_token') == null || storage.read('bearer_token') == ""
+
+        storage.read('bearer_token') == null ||
+                storage.read('bearer_token') == ""
             ? context.goNamed(LogInAuthView.routeName)
             : context.goNamed(BottomNavigationBarView.routeName);
         OTPController.clear();
         emailOrMobileController.clear();
-
+        errorMessage = 
+        "";
+      } else {
+        errorMessage = verifyResposne.data?.title ?? "";
+        passwordButtonAction = ButtonAction.error;
       }
       passwordButtonAction = ButtonAction.none;
     } catch (e) {

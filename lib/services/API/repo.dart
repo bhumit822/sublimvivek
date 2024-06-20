@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sublime/app/app.dart';
 import 'package:sublime/constatnts/strings.dart';
+import 'package:sublime/features/auth/model/verify_otp_mdoel.dart';
 import 'package:sublime/features/message/model/get_all_thrade_model.dart';
 import 'package:sublime/services/models/request_class.dart';
 import 'package:sublime/services/models/response_class.dart';
@@ -71,7 +72,8 @@ class ApiRepo {
     }
   }
 
-  Future<String> verifyOTP(Map<String, dynamic> credentials) async {
+  Future<ResponseData<T>> verifyOTP<T>(
+      Map<String, dynamic> credentials) async {
     try {
       final res = await NetworkDio.request(
         request: Request(
@@ -81,16 +83,20 @@ class ApiRepo {
           body: RequestBody(data: credentials),
         ),
       );
-      final data = await validateResponse(res);
+
+      
+      
       final response = ResponseData(
           code: res.statusCode,
-          data: data,
+          data: VevrifyOtpModel.fromMap(res.data) as T,
           status: res.statusMessage,
           message: 'Success');
+      print("check my response data ==> ${response.data}");
       if (res.statusCode == 200 || res.statusCode == 201) {
-        return response.data?["bearer_token"] ?? "";
+        return response;
+      } else {
+        return response;
       }
-      return "";
     } catch (e) {
       rethrow;
     }
@@ -103,7 +109,6 @@ class ApiRepo {
           method: Method.get,
           url: getApiUrl(StringConst.getChatThrades),
           headers: NetworkDio.getHeaders(),
-         
         ),
       );
       // final data = await validateResponse(res);
@@ -115,7 +120,7 @@ class ApiRepo {
       if (res.statusCode == 200 || res.statusCode == 201) {
         print("check res ==> ${res.data}");
         print("check res ==> ${response.data}");
-        return response.data as List<dynamic> ;
+        return response.data as List<dynamic>;
       }
       return [];
     } catch (e) {
@@ -169,19 +174,12 @@ class ApiRepo {
     if ((response.statusCode ?? 0) >= 200 && (response.statusCode ?? 0) < 300) {
       return response.data;
     } else if (response.statusCode == 400) {
-      globalScaffoldKey.currentState?.showSnackBar(errorSnackBar(response));
       return response.data;
     } else if (response.statusCode == 401) {
-      globalScaffoldKey.currentState?.showSnackBar(errorSnackBar(response));
-
       return response.data;
     } else if (response.statusCode == 404) {
-      globalScaffoldKey.currentState?.showSnackBar(errorSnackBar(response));
-
       return response.data;
     } else if (response.statusCode == 500) {
-      globalScaffoldKey.currentState?.showSnackBar(errorSnackBar(response));
-
       return response.data;
     } else {
       return response.data;

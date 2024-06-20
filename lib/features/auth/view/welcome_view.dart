@@ -57,7 +57,7 @@ class otpVerificationView extends StatelessWidget {
                     ),
                     height15,
                     textFormField(
-                      keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.number,
                         maxLines: 1,
                         obscureText: true,
                         textAlign: TextAlign.center,
@@ -72,11 +72,17 @@ class otpVerificationView extends StatelessWidget {
                         ),
                         controller: authProvider.OTPController,
                         borderRaduis: 4),
-                    height05,
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Text(
-                      "Your code will expire in 15 minutes",
-                      style: AppTextStyle.semiBold12.copyWith(
-                        color: AppColors.LightprimaryColor,
+                      authProvider.errorMessage != ""
+                          ? authProvider.errorMessage
+                          : "Your code will expire in 15 minutes",
+                      style: AppTextStyle.semiBold14.copyWith(
+                        color: authProvider.errorMessage != ""
+                            ? AppColors.errorColor
+                            : AppColors.LightprimaryColor,
                       ),
                     ),
                     height15,
