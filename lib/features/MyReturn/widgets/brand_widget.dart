@@ -70,17 +70,18 @@ class BrandLogoNameWidget extends StatelessWidget {
       required this.image,
       required this.buttonName,
       required this.subName,
-      required this.isProduct});
+      required this.isProduct, this.imageHeight, this.imageWidth});
   String? image, buttonName, subName;
-  bool? isProduct;
+  double? imageHeight, imageWidth;
+  bool? isProduct, isTextWidthRequired = false;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Image.asset(
           image!,
-          height: 45.h,
-          width: 45.h,
+          height: imageHeight ?? 45.h,
+          width:  imageWidth ?? 45.h,
         ),
         SizedBox(
           width: 10.spMin,
@@ -90,7 +91,7 @@ class BrandLogoNameWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              width: 170.spMin,
+              width: isTextWidthRequired! ?170.spMin: null,
               child: Text(
                 buttonName!,
                 style:

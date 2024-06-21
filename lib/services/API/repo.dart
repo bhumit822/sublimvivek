@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sublime/app/app.dart';
 import 'package:sublime/constatnts/strings.dart';
+import 'package:sublime/features/MyReturn/model/return_detail_model.dart';
 import 'package:sublime/features/auth/model/verify_otp_mdoel.dart';
 import 'package:sublime/features/message/model/get_all_thrade_model.dart';
 import 'package:sublime/services/models/request_class.dart';
@@ -72,8 +73,7 @@ class ApiRepo {
     }
   }
 
-  Future<ResponseData<T>> verifyOTP<T>(
-      Map<String, dynamic> credentials) async {
+  Future<ResponseData<T>> verifyOTP<T>(Map<String, dynamic> credentials) async {
     try {
       final res = await NetworkDio.request(
         request: Request(
@@ -84,13 +84,38 @@ class ApiRepo {
         ),
       );
 
-      
-      
-      final response = ResponseData(
+      final response = ResponseData<T>(
           code: res.statusCode,
           data: VevrifyOtpModel.fromMap(res.data) as T,
           status: res.statusMessage,
           message: 'Success');
+      print("check my response data ==> ${response.data}");
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseData<T>> getReturnDetailsByID<T>(String requestURL) async {
+    try {
+      final res = await NetworkDio.request(
+        request: Request(
+          method: Method.get,
+          url: getApiUrl(requestURL),
+          headers: NetworkDio.getHeaders(),
+        ),
+      );
+
+      final response = ResponseData<T>(
+          code: res.statusCode,
+          data: ReturnItemDetailByIdModel.fromMap(res.data) as T,
+          status: res.statusMessage,
+          message: 'Success');
+          
       print("check my response data ==> ${response.data}");
       if (res.statusCode == 200 || res.statusCode == 201) {
         return response;

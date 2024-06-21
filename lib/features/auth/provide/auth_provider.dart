@@ -137,6 +137,7 @@ class AuthProvider extends ChangeNotifier {
         "code": OTPController.text,
         "otp_id": resOtpID,
       });
+     
 
       if (verifyResposne.data?.bearerToken != null &&
           verifyResposne.data!.bearerToken != "") {
