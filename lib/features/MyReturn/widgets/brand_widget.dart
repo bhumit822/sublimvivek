@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sublime/features/MyReturn/model/return_detail_model.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
 
 class BrandNameWidgetWithImage extends StatelessWidget {
-  const BrandNameWidgetWithImage({super.key});
-
+   BrandNameWidgetWithImage(
+      {super.key,
+      required this.brandName,
+      required this.imagePath,
+      required this.itemList,
+      required this.itemCount});
+  String? imagePath, brandName, itemCount;
+  List<Item>? itemList;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,8 +26,8 @@ class BrandNameWidgetWithImage extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.asset(
-                "assets/icons/png/leve'sLogo.png",
+              Image.network(
+                imagePath!,
                 height: 45.spMax,
                 width: 45.spMin,
               ),
@@ -29,13 +36,14 @@ class BrandNameWidgetWithImage extends StatelessWidget {
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Levi’s",
+                    brandName!,
                     style: AppTextStyle.bold14,
                   ),
                   Text(
-                    "3 Items",
+                    "${itemCount!} Items",
                     style: AppTextStyle.regular12
                         .copyWith(color: AppColors.newGrayCOlor),
                   ),
@@ -43,20 +51,30 @@ class BrandNameWidgetWithImage extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            children: [
-              for (int i = 0; i < 3; i++)
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 3.spMin,
-                  ),
-                  child: Image.asset(
-                    "assets/icons/png/product_images.png",
-                    height: 60.spMin,
-                    width: 60.spMin,
-                  ),
-                )
-            ],
+          SizedBox(width: 25.h,),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: SingleChildScrollView(
+                         scrollDirection: Axis.horizontal,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    for (int i = 0; i < itemList!.length; i++)
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 3.spMin,
+                        ),
+                        child: Image.network(
+                          itemList![i].imageUrl ?? "",
+                          height: 60.spMin,
+                          width: 60.spMin,
+                        ),
+                      )
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -70,7 +88,9 @@ class BrandLogoNameWidget extends StatelessWidget {
       required this.image,
       required this.buttonName,
       required this.subName,
-      required this.isProduct, this.imageHeight, this.imageWidth});
+      required this.isProduct,
+      this.imageHeight,
+      this.imageWidth});
   String? image, buttonName, subName;
   double? imageHeight, imageWidth;
   bool? isProduct, isTextWidthRequired = false;
@@ -81,7 +101,7 @@ class BrandLogoNameWidget extends StatelessWidget {
         Image.asset(
           image!,
           height: imageHeight ?? 45.h,
-          width:  imageWidth ?? 45.h,
+          width: imageWidth ?? 45.h,
         ),
         SizedBox(
           width: 10.spMin,
@@ -91,11 +111,12 @@ class BrandLogoNameWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              width: isTextWidthRequired! ?170.spMin: null,
+              width: isTextWidthRequired! ? 170.spMin : null,
               child: Text(
                 buttonName!,
-                style:
-                    isProduct! ? AppTextStyle.semiBold14.copyWith(height: 1.2) : AppTextStyle.bold16,
+                style: isProduct!
+                    ? AppTextStyle.semiBold14.copyWith(height: 1.2)
+                    : AppTextStyle.bold16,
                 maxLines: 4,
               ),
             ),

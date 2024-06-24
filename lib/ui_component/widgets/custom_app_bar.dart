@@ -5,7 +5,11 @@ import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
 
 PreferredSizeWidget customAppBar(
-    {bool? isBack, String? tittle, VoidCallback? onTap}) {
+    {bool? isBack,
+    String? tittle,
+    VoidCallback? onTap,
+    VoidCallback? onActionTap,
+    bool? isAction}) {
   return AppBar(
     toolbarHeight: 60.spMin,
     automaticallyImplyLeading: false,
@@ -21,6 +25,20 @@ PreferredSizeWidget customAppBar(
                   width: 15,
                 )),
           ),
+    actions: isAction == true
+        ? [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: GestureDetector(
+                  onTap: onActionTap,
+                  child: SvgPicture.asset(
+                    "assets/icons/svg/shareIcon.svg",
+                    height: 30,
+                    width: 30,
+                  )),
+            ),
+          ]
+        : [],
     title: Text(
       tittle ?? "",
       style: isBack

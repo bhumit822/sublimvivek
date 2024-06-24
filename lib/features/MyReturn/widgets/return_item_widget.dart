@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sublime/features/MyReturn/model/return_detail_model.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
 
 class ReturnDetailsWidget extends StatelessWidget {
   ReturnDetailsWidget(
-      {super.key,
-      required this.returnCount,
-      required this.itemImage,
-      required this.isbill});
-  int? returnCount;
-  String? itemImage;
+      {super.key, required this.returnItemList, required this.isbill});
+
   bool? isbill;
+  List<Item> returnItemList;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,13 +21,13 @@ class ReturnDetailsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${returnCount} Return Items",
+              "${returnItemList.length} Return Items",
               style: AppTextStyle.bold18,
             ),
             SizedBox(
               height: 10.h,
             ),
-            for (int i = 0; i < returnCount!; i++)
+            for (int i = 0; i < returnItemList.length; i++)
               Column(
                 children: [
                   SizedBox(
@@ -38,8 +36,8 @@ class ReturnDetailsWidget extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        itemImage!,
+                      Image.network(
+                        returnItemList[i].imageUrl ?? "",
                         height: 125.h,
                         width: 125.h,
                       ),
@@ -54,22 +52,22 @@ class ReturnDetailsWidget extends StatelessWidget {
                             height: 10.h,
                           ),
                           Text(
-                            "London",
+                            returnItemList[i].itemName ?? "",
                             style: AppTextStyle.bold14,
                           ),
                           SizedBox(
                             height: 10.h,
                           ),
-                          const Text(
-                            "Color: Grey",
+                          Text(
+                            "Color: ${returnItemList[i].itemColor ?? ""}",
                             style: AppTextStyle.regular14,
                           ),
-                          const Text(
-                            "Size: 8.5",
+                          Text(
+                            "Size: ${returnItemList[i].itemColor ?? ""}",
                             style: AppTextStyle.regular14,
                           ),
-                          const Text(
-                            "Qty: 1",
+                          Text(
+                            "Qty: ${returnItemList[i].returnQuantity ?? ""}",
                             style: AppTextStyle.regular14,
                           ),
                           Text(
@@ -79,20 +77,19 @@ class ReturnDetailsWidget extends StatelessWidget {
                           SizedBox(
                             height: 15.h,
                           ),
-                          const Text(
-                            "Return Reason: Wrong Size",
+                          Text(
+                            "Return Reason: ${returnItemList[i].returnReason ?? ""}",
                             style: AppTextStyle.regular14,
                           ),
                         ],
                       ),
                     ],
                   ),
-                  i == returnCount! - 1 && isbill!
+                  i == returnItemList.length - 1 && isbill!
                       ? const SizedBox()
                       : const Divider(
-                              color: AppColors.dividerColor,
-                            ),
-                           
+                          color: AppColors.dividerColor,
+                        ),
                 ],
               ),
             !isbill!

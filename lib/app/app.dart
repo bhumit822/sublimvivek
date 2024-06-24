@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sublime/app/Routes/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:sublime/app/provider/app_provider.dart';
+import 'package:sublime/features/MyReturn/provider/return_detail_provider.dart';
 import 'package:sublime/features/auth/provide/auth_provider.dart';
 import 'package:sublime/features/bottom_navigation_bar/provider/bottom_nav_bar_provider.dart';
 
@@ -24,6 +25,9 @@ class MainApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => BottomNavProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ReturnDetailBtIDProvider(),
         ),
       ],
       builder: (context, child) {
