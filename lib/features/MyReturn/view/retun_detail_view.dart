@@ -563,9 +563,7 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                         SizedBox(
                           height: 10.spMin,
                         ),
-                        providerValue.returnDetailData.data?.qrcodeUrl == null
-                            ? SizedBox()
-                            : Align(
+                        Align(
                                 alignment: Alignment.center,
                                 child: Container(
                                   padding: EdgeInsets.fromLTRB(
