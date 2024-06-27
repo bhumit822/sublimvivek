@@ -99,6 +99,7 @@ class Brand {
 class Item {
     final String? imageUrl;
     final String? itemName;
+    final String? itemSize;
     final String? itemColor;
     final int? returnQuantity;
     final String? returnReason;
@@ -108,6 +109,7 @@ class Item {
         this.itemName,
         this.itemColor,
         this.returnQuantity,
+        this.itemSize,
         this.returnReason,
     });
 
@@ -115,12 +117,14 @@ class Item {
         String? imageUrl,
         String? itemName,
         String? itemColor,
+        String? itemSize,
         int? returnQuantity,
         String? returnReason,
     }) => 
         Item(
             imageUrl: imageUrl ?? this.imageUrl,
             itemName: itemName ?? this.itemName,
+            itemSize: itemSize ?? this.itemSize,
             itemColor: itemColor ?? this.itemColor,
             returnQuantity: returnQuantity ?? this.returnQuantity,
             returnReason: returnReason ?? this.returnReason,
@@ -129,6 +133,7 @@ class Item {
     factory Item.fromMap(Map<String, dynamic> json) => Item(
         imageUrl: json["image_url"],
         itemName: json["item_name"],
+        itemSize: json["item_size"],
         itemColor: json["item_color"],
         returnQuantity: json["return_quantity"],
         returnReason: json["return_reason"],
@@ -137,6 +142,7 @@ class Item {
     Map<String, dynamic> toMap() => {
         "image_url": imageUrl,
         "item_name": itemName,
+        "item_size": itemSize,
         "item_color": itemColor,
         "return_quantity": returnQuantity,
         "return_reason": returnReason,
@@ -149,6 +155,7 @@ class Location {
     final double? longitude;
     final String? name;
     final String? address;
+    
     final String? city;
     final String? region;
     final String? postalCode;

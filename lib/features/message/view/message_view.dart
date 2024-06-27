@@ -71,7 +71,7 @@ class _MessageViewState extends State<MessageView> {
                                       Expanded(
                                           flex: 9,
                                           child: Text(
-                                            "In publishing and graphic design, Lorem ipsum (/ˌlɔː.rəm ˈɪp.səm/) is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",
+                                            "In publishing and graphic design, Lorem ipsum (/ˌlɔː.rəm ˈɪp.səm/) is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is avaiLabel.",
                                             style: i == 0
                                                 ? AppTextStyle.bold16
                                                 : AppTextStyle.regular16,

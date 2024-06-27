@@ -64,7 +64,7 @@ class _RegisterViewState extends State<RegisterView> {
                               borderColor: Colors.white,
                               textStyle: AppTextStyle.bold14
                                   .copyWith(color: AppColors.textWhiteColor),
-                              lableStyle: AppTextStyle.semiBold14
+                              LabelStyle: AppTextStyle.semiBold14
                                   .copyWith(color: AppColors.textWhiteColor),
                               labelText: "First Name",
                               cursorColor: AppColors.textWhiteColor,
@@ -74,7 +74,7 @@ class _RegisterViewState extends State<RegisterView> {
                               onChanged: (value) {
                                 authProvider.validateRegisterViewForm();
                               },
-                              lableStyle: AppTextStyle.semiBold14
+                              LabelStyle: AppTextStyle.semiBold14
                                   .copyWith(color: AppColors.textWhiteColor),
                               controller: authProvider.lastNameController,
                               contentPadding:
@@ -91,7 +91,7 @@ class _RegisterViewState extends State<RegisterView> {
                               onChanged: (value) {
                                 authProvider.validateRegisterViewForm();
                               },
-                              lableStyle: AppTextStyle.semiBold14
+                              LabelStyle: AppTextStyle.semiBold14
                                   .copyWith(color: AppColors.textWhiteColor),
                               controller: authProvider.phoneNumberController,
                               contentPadding:
@@ -108,7 +108,7 @@ class _RegisterViewState extends State<RegisterView> {
                               onChanged: (value) {
                                 authProvider.validateRegisterViewForm();
                               },
-                              lableStyle: AppTextStyle.semiBold14
+                              LabelStyle: AppTextStyle.semiBold14
                                   .copyWith(color: AppColors.textWhiteColor),
                               labelText: "Email",
                               controller: authProvider.emailController,

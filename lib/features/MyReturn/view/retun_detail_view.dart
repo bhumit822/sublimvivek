@@ -14,6 +14,7 @@ import 'package:sublime/features/MyReturn/widgets/qr_widget.dart';
 import 'package:sublime/features/MyReturn/widgets/return_item_widget.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
+import 'package:sublime/ui_component/widgets/catch_image_widget.dart';
 import 'package:sublime/ui_component/widgets/chat_textfield_widget.dart';
 import 'package:sublime/ui_component/widgets/custom_app_bar.dart';
 import 'package:sublime/ui_component/widgets/outLine_button.dart';
@@ -210,7 +211,7 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
             ),
             ReturnDetailsWidget(
               returnItemList: providerValue.returnDetailData.data?.items ?? [],
-              isbill: true,
+              isbill: false,
             ),
           ],
         );
@@ -223,15 +224,16 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
         builder: (context, providerValue, child) {
       return providerValue.passwordButtonAction == ButtonAction.loading
           ? SizedBox(
-            height: MediaQuery.of(context).size.height -  MediaQuery.of(context).size.height * 0.2,
-            width: MediaQuery.of(context).size.width,
-            child:const Center(
+              height: MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width,
+              child: const Center(
                 child: CircularProgressIndicator(
                   color: AppColors.primaryColor,
                   strokeWidth: 1,
                 ),
               ),
-          )
+            )
           : Column(
               children: [
                 BrandNameWidgetWithImage(
@@ -298,7 +300,7 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.all(10.h),
+                        margin: EdgeInsets.symmetric(vertical:  10.h, horizontal: 30.h),
                         decoration: BoxDecoration(
                           border: Border.all(color: AppColors.dividerColor),
                           borderRadius: BorderRadius.circular(10.h),
@@ -325,10 +327,10 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  context.pushNamed(RetunLableView.routeName);
+                                  context.pushNamed(RetunLabelView.routeName);
                                 },
                                 child: Text(
-                                  "View Your Return Lable",
+                                  "View Your Return Label",
                                   style: AppTextStyle.bold16
                                       .copyWith(color: AppColors.primaryColor),
                                 ),
@@ -408,7 +410,8 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                                   borderRadius: BorderRadius.circular(100)),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child: Image.network(
+                                child: NetworkImageWidget(
+                                  imageUrl: 
                                   providerValue.returnDetailData.data?.location
                                           ?.logoUrl ??
                                       "",
@@ -454,15 +457,16 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
       builder: (context, providerValue, child) {
         return providerValue.passwordButtonAction == ButtonAction.loading
             ? SizedBox(
-            height: MediaQuery.of(context).size.height -  MediaQuery.of(context).size.height * 0.2,
-            width: MediaQuery.of(context).size.width,
-            child:const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.primaryColor,
-                  strokeWidth: 1,
+                height: MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.width,
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.primaryColor,
+                    strokeWidth: 1,
+                  ),
                 ),
-              ),
-          )
+              )
             : Column(
                 children: [
                   BrandNameWidgetWithImage(
@@ -534,7 +538,7 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                                         horizontal: 10.spMin,
                                         vertical: 5.spMin),
                                     decoration: BoxDecoration(
-                                        color: AppColors.lableButtonColor,
+                                        color: AppColors.LabelButtonColor,
                                         borderRadius:
                                             BorderRadius.circular(10.spMin)),
                                     child: Row(
@@ -576,12 +580,11 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                                       )),
                                   child: Column(
                                     children: [
-                                      Image.network(
-                                        providerValue.returnDetailData.data
-                                                ?.qrcodeUrl ??
-                                            "",
-                                        height: 150.spMin,
-                                        width: 150.spMin,
+                                      NetworkImageWidget(
+                                        imageUrl: providerValue
+                                            .returnDetailData.data!.qrcodeUrl!,
+                                        height: 250.spMin,
+                                        width: 250.spMin,
                                       ),
                                       SizedBox(
                                         height: 5.spMin,

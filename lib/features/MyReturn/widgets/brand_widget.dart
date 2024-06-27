@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sublime/features/MyReturn/model/return_detail_model.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
+import 'package:sublime/ui_component/widgets/catch_image_widget.dart';
 
 class BrandNameWidgetWithImage extends StatelessWidget {
    BrandNameWidgetWithImage(
@@ -26,8 +27,8 @@ class BrandNameWidgetWithImage extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.network(
-                imagePath!,
+            NetworkImageWidget(
+                imageUrl:  imagePath!,
                 height: 45.spMax,
                 width: 45.spMin,
               ),
@@ -65,8 +66,8 @@ class BrandNameWidgetWithImage extends StatelessWidget {
                         padding: EdgeInsets.only(
                           left: 3.spMin,
                         ),
-                        child: Image.network(
-                          itemList![i].imageUrl ?? "",
+                        child: NetworkImageWidget(
+                        imageUrl:   itemList![i].imageUrl ?? "",
                           height: 60.spMin,
                           width: 60.spMin,
                         ),

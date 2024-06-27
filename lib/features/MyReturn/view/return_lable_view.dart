@@ -8,16 +8,16 @@ import 'package:sublime/features/MyReturn/provider/return_detail_provider.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/widgets/custom_app_bar.dart';
 
-class RetunLableView extends StatefulWidget {
-  static const routeName = 'RetunLableView';
-  static const route = '/RetunLableView';
-  const RetunLableView({super.key});
+class RetunLabelView extends StatefulWidget {
+  static const routeName = 'RetunLabelView';
+  static const route = '/RetunLabelView';
+  const RetunLabelView({super.key});
 
   @override
-  State<RetunLableView> createState() => _RetunLableViewState();
+  State<RetunLabelView> createState() => _RetunLabelViewState();
 }
 
-class _RetunLableViewState extends State<RetunLableView> {
+class _RetunLabelViewState extends State<RetunLabelView> {
   @override
   void initState() {
     // TODO: implement initState

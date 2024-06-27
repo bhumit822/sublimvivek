@@ -528,7 +528,7 @@ TextFormField underLineTextFormField({
   final TextStyle? style,
   final TextStyle? textStyle,
   final TextStyle? hintStyle,
-  final TextStyle? lableStyle,
+  final TextStyle? LabelStyle,
   final TextAlign textAlign = TextAlign.left,
   final TextEditingController? controller,
   final List<TextInputFormatter>? inputFormatters,
@@ -576,7 +576,7 @@ TextFormField underLineTextFormField({
 
     style: textStyle ?? AppTextStyle.regular12,
     decoration: InputDecoration(
-      labelStyle: lableStyle,
+      labelStyle: LabelStyle,
       prefixIcon: prefixIcon,
       contentPadding:
           contentPadding ?? const EdgeInsets.fromLTRB(20, 18, 10, 18),
