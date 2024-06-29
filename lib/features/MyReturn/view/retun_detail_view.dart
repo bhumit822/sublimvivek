@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +9,6 @@ import 'package:sublime/features/MyReturn/view/return_lable_view.dart';
 import 'package:sublime/features/MyReturn/widgets/brand_widget.dart';
 import 'package:sublime/features/MyReturn/widgets/footer_view.dart';
 import 'package:sublime/features/MyReturn/widgets/item_return_widget.dart';
-import 'package:sublime/features/MyReturn/widgets/qr_widget.dart';
 import 'package:sublime/features/MyReturn/widgets/return_item_widget.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
@@ -37,6 +35,8 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<ReturnDetailBtIDProvider>().passwordButtonAction =
+          ButtonAction.loading;
       widget.index == 0
           ? context.read<ReturnDetailBtIDProvider>().getReturnDetailAPI(
               context, "example-qrcode", "peninsulatrading", "en_US")
@@ -283,24 +283,45 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                             Row(
                               children: [
                                 Text(
-                                  "Open",
-                                  style: AppTextStyle.bold14
-                                      .copyWith(color: AppColors.messageColor),
+                                  getDate(providerValue.returnDetailData.data
+                                                      ?.location?.hours ??
+                                                  [])
+                                              .closed ??
+                                          false
+                                      ? 'Closed'
+                                      : 'Opens',
+                                  style: AppTextStyle.bold14.copyWith(
+                                      color: getDate(providerValue
+                                                          .returnDetailData
+                                                          .data
+                                                          ?.location
+                                                          ?.hours ??
+                                                      [])
+                                                  .closed ??
+                                              false
+                                          ? AppColors.errorColor
+                                          : AppColors.messageColor),
                                 ),
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                const Text(
-                                  "Closes 7PM",
-                                  style: AppTextStyle.regular14,
-                                ),
+                                if (!(getDate(providerValue.returnDetailData
+                                                .data?.location?.hours ??
+                                            [])
+                                        .closed ??
+                                    true))
+                                  Text(
+                                    "Closes ${getDate(providerValue.returnDetailData.data?.location?.hours ?? []).close}",
+                                    style: AppTextStyle.regular14,
+                                  ),
                               ],
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(vertical:  10.h, horizontal: 30.h),
+                        margin: EdgeInsets.symmetric(
+                            vertical: 10.h, horizontal: 30.h),
                         decoration: BoxDecoration(
                           border: Border.all(color: AppColors.dividerColor),
                           borderRadius: BorderRadius.circular(10.h),
@@ -385,17 +406,40 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                                 Row(
                                   children: [
                                     Text(
-                                      "Close",
+                                      getDate(providerValue
+                                                          .returnDetailData
+                                                          .data
+                                                          ?.location
+                                                          ?.hours ??
+                                                      [])
+                                                  .closed ??
+                                              false
+                                          ? 'Closed'
+                                          : 'Opens',
                                       style: AppTextStyle.bold14.copyWith(
-                                          color: AppColors.messageColor),
+                                          color: getDate(providerValue
+                                                              .returnDetailData
+                                                              .data
+                                                              ?.location
+                                                              ?.hours ??
+                                                          [])
+                                                      .closed ??
+                                                  false
+                                              ? AppColors.errorColor
+                                              : AppColors.messageColor),
                                     ),
                                     const SizedBox(
                                       width: 5,
                                     ),
-                                    const Text(
-                                      "Closes 7PM",
-                                      style: AppTextStyle.regular14,
-                                    ),
+                                    if (!(getDate(providerValue.returnDetailData
+                                                    .data?.location?.hours ??
+                                                [])
+                                            .closed ??
+                                        true))
+                                      Text(
+                                        "Closes ${getDate(providerValue.returnDetailData.data?.location?.hours ?? []).close}",
+                                        style: AppTextStyle.regular14,
+                                      ),
                                   ],
                                 ),
                               ],
@@ -411,9 +455,8 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
                                 child: NetworkImageWidget(
-                                  imageUrl: 
-                                  providerValue.returnDetailData.data?.location
-                                          ?.logoUrl ??
+                                  imageUrl: providerValue.returnDetailData.data
+                                          ?.location?.logoUrl ??
                                       "",
                                   height: 82.spMin,
                                   width: 82.spMin,
@@ -519,17 +562,43 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "Open",
+                                          getDate(providerValue
+                                                              .returnDetailData
+                                                              .data
+                                                              ?.location
+                                                              ?.hours ??
+                                                          [])
+                                                      .closed ??
+                                                  false
+                                              ? 'Closed'
+                                              : 'Opens',
                                           style: AppTextStyle.bold14.copyWith(
-                                              color: AppColors.messageColor),
+                                              color: getDate(providerValue
+                                                                  .returnDetailData
+                                                                  .data
+                                                                  ?.location
+                                                                  ?.hours ??
+                                                              [])
+                                                          .closed ??
+                                                      false
+                                                  ? AppColors.errorColor
+                                                  : AppColors.messageColor),
                                         ),
                                         const SizedBox(
                                           width: 5,
                                         ),
-                                        const Text(
-                                          "Closes 7PM",
-                                          style: AppTextStyle.regular14,
-                                        ),
+                                        if (!(getDate(providerValue
+                                                        .returnDetailData
+                                                        .data
+                                                        ?.location
+                                                        ?.hours ??
+                                                    [])
+                                                .closed ??
+                                            true))
+                                          Text(
+                                            "Closes ${getDate(providerValue.returnDetailData.data?.location?.hours ?? []).close}",
+                                            style: AppTextStyle.regular14,
+                                          ),
                                       ],
                                     ),
                                   ),
@@ -564,38 +633,38 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                           height: 10.spMin,
                         ),
                         Align(
-                                alignment: Alignment.center,
-                                child: Container(
-                                  padding: EdgeInsets.fromLTRB(
-                                      20.spMin, 20.spMin, 20.spMin, 10.spMin),
-                                  // height: 3.5.spMin,
-                                  width: 295.spMin,
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(20.spMin),
-                                      border: Border.all(
-                                        color: AppColors.newGrayCOlor,
-                                      )),
-                                  child: Column(
-                                    children: [
-                                      NetworkImageWidget(
-                                        imageUrl: providerValue
-                                            .returnDetailData.data!.qrcodeUrl!,
-                                        height: 250.spMin,
-                                        width: 250.spMin,
-                                      ),
-                                      SizedBox(
-                                        height: 5.spMin,
-                                      ),
-                                      Text(
-                                        "Expires in 28 Days",
-                                        style: AppTextStyle.semiBold12.copyWith(
-                                            color: AppColors.newGrayCOlor),
-                                      )
-                                    ],
-                                  ),
+                          alignment: Alignment.center,
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(
+                                20.spMin, 20.spMin, 20.spMin, 10.spMin),
+                            // height: 3.5.spMin,
+                            width: 295.spMin,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.spMin),
+                                border: Border.all(
+                                  color: AppColors.newGrayCOlor,
+                                )),
+                            child: Column(
+                              children: [
+                                NetworkImageWidget(
+                                  imageUrl: providerValue
+                                          .returnDetailData.data!.qrcodeUrl ??
+                                      "",
+                                  height: 250.spMin,
+                                  width: 250.spMin,
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 5.spMin,
+                                ),
+                                Text(
+                                  "Expires in 28 Days",
+                                  style: AppTextStyle.semiBold12
+                                      .copyWith(color: AppColors.newGrayCOlor),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                         SizedBox(
                           height: 15.spMin,
                         ),
@@ -626,6 +695,42 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.h),
                           child: FooterView(
+                            time: Row(
+                              children: [
+                                Text(
+                                  getDate(providerValue.returnDetailData.data
+                                                      ?.location?.hours ??
+                                                  [])
+                                              .closed ??
+                                          false
+                                      ? 'Closed'
+                                      : 'Opens',
+                                  style: AppTextStyle.bold14.copyWith(
+                                      color: getDate(providerValue
+                                                          .returnDetailData
+                                                          .data
+                                                          ?.location
+                                                          ?.hours ??
+                                                      [])
+                                                  .closed ??
+                                              false
+                                          ? AppColors.errorColor
+                                          : AppColors.messageColor),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                if (!(getDate(providerValue.returnDetailData
+                                                .data?.location?.hours ??
+                                            [])
+                                        .closed ??
+                                    true))
+                                  Text(
+                                    "Closes ${getDate(providerValue.returnDetailData.data?.location?.hours ?? []).close}",
+                                    style: AppTextStyle.regular14,
+                                  ),
+                              ],
+                            ),
                             location:
                                 providerValue.returnDetailData.data!.location,
                           ),

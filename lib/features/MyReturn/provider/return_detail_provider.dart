@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdfx/pdfx.dart';
@@ -77,5 +80,55 @@ class ReturnDetailBtIDProvider extends ChangeNotifier {
         SnackBar(content: Text('Error: $e')),
       );
     }
+  }
+}
+
+({String open, String close, String day, bool? closed}) getDate(
+  List<Hour> hours,
+) {
+  if (hours.isEmpty) {
+    return (
+      open: '',
+      close: '',
+      day: '',
+      closed: true,
+    );
+  } else {
+    final today = DateTime.now();
+    final dayName = DateFormat('EEE').format(today);
+
+    final data = hours.firstWhere((element) => element.day == dayName);
+    print("chck rea ==> ${data.toMap()}");
+    log('${(
+      open: gethours(data.open),
+      close: gethours(data.close),
+      day: dayName,
+      closed: data.closed,
+    )}');
+    return (
+      open: gethours(data.open),
+      close: gethours(data.close),
+      day: dayName,
+      closed: data.closed,
+    );
+  }
+}
+
+String gethours(String? hour) {
+  try {
+    if (hour != null) {
+      final hr = int.tryParse(hour.substring(0, 2)) ?? 00;
+      final min = int.tryParse(hour.substring(3)) ?? 00;
+
+      final String time =
+          '${hr > 12 ? hr - 12 : hr}:${min.toString().padLeft(2, '0')} ${hr > 12 ? 'PM' : 'AM'}';
+      log(time);
+      return time;
+    } else {
+      return '00:00';
+    }
+  } catch (e) {
+    log(e.toString());
+    return '00:00-';
   }
 }
