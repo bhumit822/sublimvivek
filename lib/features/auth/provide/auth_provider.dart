@@ -70,6 +70,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
   //! SEND OTP API
 
   void checkAndModifyNumber() {
@@ -111,8 +112,10 @@ class AuthProvider extends ChangeNotifier {
         resOtpID = otpID;
         passwordButtonAction = ButtonAction.none;
         context.pushNamed(otpVerificationView.routeName);
+      }else{
+        passwordButtonAction = ButtonAction.error;
+
       }
-      passwordButtonAction = ButtonAction.none;
     } catch (e) {
       passwordButtonAction = ButtonAction.none;
     }
