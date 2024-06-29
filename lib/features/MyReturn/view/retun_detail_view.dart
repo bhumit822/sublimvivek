@@ -311,8 +311,8 @@ class _MyReturnDetailViewState extends State<MyReturnDetailView> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 20.h),
-                                child: SvgPicture.asset(
-                                    "assets/icons/svg/document.svg"),
+                                child: Image.asset(
+                                    "assets/icons/png/document.png"),
                               ),
                               Text(
                                 "Expires in 28 Days",

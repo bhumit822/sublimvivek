@@ -19,7 +19,7 @@ class ReturnDetailBtIDProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  ButtonAction _passwordButtonAction = ButtonAction.none;
+  ButtonAction _passwordButtonAction = ButtonAction.loading;
   ButtonAction get passwordButtonAction => _passwordButtonAction;
   set passwordButtonAction(ButtonAction action) {
     _passwordButtonAction = action;
