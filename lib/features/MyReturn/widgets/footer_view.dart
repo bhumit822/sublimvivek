@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sublime/features/MyReturn/model/return_detail_model.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
+import 'package:sublime/ui_component/widgets/catch_image_widget.dart';
 
 class FooterView extends StatefulWidget {
   FooterView({super.key, required this.location});
@@ -41,8 +42,8 @@ class _FooterViewState extends State<FooterView> {
               borderRadius: BorderRadius.circular(100)),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: Image.network(
-              widget.location!.logoUrl ?? "",
+            child: NetworkImageWidget(
+              imageUrl: widget.location!.logoUrl ?? "",
               height: 82.spMin,
               width: 82.spMin,
             ),

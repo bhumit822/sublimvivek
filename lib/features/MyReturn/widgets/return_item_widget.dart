@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sublime/features/MyReturn/model/return_detail_model.dart';
 import 'package:sublime/ui_component/style/colors.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
+import 'package:sublime/ui_component/widgets/catch_image_widget.dart';
 
 class ReturnDetailsWidget extends StatelessWidget {
   ReturnDetailsWidget(
@@ -36,7 +37,8 @@ class ReturnDetailsWidget extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.network(
+                     NetworkImageWidget(
+                      imageUrl: 
                         returnItemList[i].imageUrl ?? "",
                         height: 125.h,
                         width: 125.h,
@@ -63,7 +65,7 @@ class ReturnDetailsWidget extends StatelessWidget {
                             style: AppTextStyle.regular14,
                           ),
                           Text(
-                            "Size: ${returnItemList[i].itemColor ?? ""}",
+                            "Size: ${returnItemList[i].itemSize ?? ""}",
                             style: AppTextStyle.regular14,
                           ),
                           Text(

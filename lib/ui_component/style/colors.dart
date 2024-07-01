@@ -22,7 +22,7 @@ class AppColors {
   static const Color iconSelectedColor = Color(0xFF2B6EBF);
   static const Color iconunSelectedColor = Color(0xFF949AA8);
   static const Color newGrayCOlor = Color(0xFF666666);
-  static const Color lableButtonColor = Color(0xFFFFF6D5);
+  static const Color LabelButtonColor = Color(0xFFFFF6D5);
   static const Color grey99Color = Color(0xFF999999);
   static const Color dividerColor = Color(0xFFD3D1D1);
   static const Color errorColor = Color(0xFFFF9D88);

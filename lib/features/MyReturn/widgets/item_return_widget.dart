@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sublime/features/MyReturn/model/return_detail_model.dart';
 import 'package:sublime/ui_component/style/text_styles.dart';
+import 'package:sublime/ui_component/widgets/catch_image_widget.dart';
 
 class ItemReturnWidget extends StatelessWidget {
   ItemReturnWidget({super.key, required this.returnItemList});
@@ -22,14 +23,14 @@ class ItemReturnWidget extends StatelessWidget {
             height: 10.h,
           ),
           for (int i = 0; i < returnItemList!.length; i++)
-          ReturnItemListWidget(
-            itemImage: returnItemList![i].imageUrl,
-            itemNmae: returnItemList![i].itemName,
-            itemSized: "-",
-            itemStyle: "-",
-            returnQuantity:  returnItemList![i].returnQuantity.toString(),
-            returnReason:  returnItemList![i].returnReason,
-          ),
+            ReturnItemListWidget(
+              itemImage: returnItemList![i].imageUrl,
+              itemNmae: returnItemList![i].itemName,
+              itemSized: returnItemList![i].itemSize,
+              itemStyle: "-",
+              returnQuantity: returnItemList![i].returnQuantity.toString(),
+              returnReason: returnItemList![i].returnReason,
+            ),
         ],
       ),
     );
@@ -45,7 +46,12 @@ class ReturnItemListWidget extends StatelessWidget {
       required this.returnQuantity,
       required this.itemSized,
       required this.returnReason});
-  String? itemImage, itemNmae, itemStyle, itemSized ,returnQuantity, returnReason;
+  String? itemImage,
+      itemNmae,
+      itemStyle,
+      itemSized,
+      returnQuantity,
+      returnReason;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,8 +59,8 @@ class ReturnItemListWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            itemImage ?? "",
+          NetworkImageWidget(
+            imageUrl: itemImage ?? "",
             height: 100.h,
             width: 100.h,
           ),
@@ -65,10 +71,12 @@ class ReturnItemListWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                 itemNmae!,
+                  itemNmae!,
                   style: AppTextStyle.bold14,
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(
+                  height: 5.h,
+                ),
                 Text(
                   "Size: ${itemSized!}",
                   style: AppTextStyle.regular14,
@@ -81,8 +89,9 @@ class ReturnItemListWidget extends StatelessWidget {
                   "Qty: ${returnQuantity!}",
                   style: AppTextStyle.regular14,
                 ),
-                SizedBox(height: 10.h,),
-            
+                SizedBox(
+                  height: 10.h,
+                ),
                 Text(
                   "Return Reason: ${returnReason!}",
                   style: AppTextStyle.regular14,

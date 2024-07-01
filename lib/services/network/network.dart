@@ -1,10 +1,18 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:sublime/services/models/request_class.dart';
 
 class NetworkDio {
-  static Dio dio = Dio();
+  static Dio dio = Dio()
+    ..httpClientAdapter = NativeAdapter(
+      createCupertinoConfiguration: () =>
+          URLSessionConfiguration.ephemeralSessionConfiguration()
+            ..allowsCellularAccess = false
+            ..allowsConstrainedNetworkAccess = false
+            ..allowsExpensiveNetworkAccess = false,
+    );
 
   static setHeaders(Map<String, dynamic> headers) {
     dio.options.headers = {"Content-Type": "application/json", ...headers};

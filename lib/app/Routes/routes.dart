@@ -101,10 +101,10 @@ class AppRoutes {
         },
       ),
       GoRoute(
-        name: RetunLableView.routeName,
-        path: RetunLableView.route,
+        name: RetunLabelView.routeName,
+        path: RetunLabelView.route,
         builder: (context, state) {
-          return RetunLableView();
+          return RetunLabelView();
         },
       ),
     ],
